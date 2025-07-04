@@ -4,16 +4,20 @@ pluginManagement {
         google()
         mavenCentral()
     }
+    plugins {
+        id 'com.android.application' version '8.4.0'
+        id 'org.jetbrains.kotlin.android' version '1.9.10'
+        id 'dev.flutter.flutter-gradle-plugin' version '1.0.0'
+    }
 }
+
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven {
-            url "https://storage.googleapis.com/download.flutter.io"
-        }
     }
 }
+
 rootProject.name = 'your_project_name'
 include ':app'
