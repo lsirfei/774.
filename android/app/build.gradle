@@ -1,38 +1,53 @@
+// android/app/build.gradle
+
 plugins {
     id 'com.android.application'
-    id 'dev.flutter.flutter-gradle-plugin'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace "com.example.your_project_name"
+    namespace 'com.example.yourapp'  // 请替换为你自己包名
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.your_project_name"
+        applicationId "com.example.yourapp"  // 请替换为你自己包名
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        // 关闭多dex的情况下使用，如果需要多dex请加 multidex 支持
+        multiDexEnabled false
     }
 
     buildTypes {
         release {
-            shrinkResources false
+            signingConfig signingConfigs.debug  // 请根据实际情况替换为你的签名配置
             minifyEnabled false
-            signingConfig signingConfigs.debug // 替换为你的签名配置
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // 解决 Flutter 3.32.5 可能报错的配置
     buildFeatures {
-        viewBinding true
+        // Flutter 用不到 ViewBinding
+        viewBinding false
     }
 }
 
-flutter {
-    source '../..'
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
 }
