@@ -1,15 +1,18 @@
 buildscript {
+    ext.kotlin_version = '1.9.22' // 或 1.8.10 也可
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.2.0' // 适配 Java 17
     }
 }
 
-
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
