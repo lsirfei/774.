@@ -1,7 +1,32 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// android/build.gradle
 
 buildscript {
-    dependencies {
-        // Flutter 插件会自动注入这里，不需要手动添加
+    repositories {
+        google()
+        mavenCentral()
     }
+    dependencies {
+        // Flutter Gradle plugin
+        classpath "com.android.tools.build:gradle:8.1.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
