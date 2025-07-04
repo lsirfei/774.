@@ -1,4 +1,4 @@
 // android/settings.gradle
 
-rootProject.name = 'yourapp'  // 请替换为你的项目名
+rootProject.name = 'test_application'  // 请替换为你的项目名
 include ':app'
