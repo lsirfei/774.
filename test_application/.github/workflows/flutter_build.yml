@@ -1,4 +1,4 @@
-name: Android CI
+name: Flutter Android CI
 
 on:
   push:
@@ -8,48 +8,59 @@ on:
 
 jobs:
   build_android:
-    name: Build Android Release
+    name: Build Android (APK + AAB)
     runs-on: ubuntu-latest
     env:
       FLUTTER_CHANNEL: stable
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: latest
+          channel: ${{ env.FLUTTER_CHANNEL }}
+
+      - name: Cache pub packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
       - name: Decode Android keystore
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" \
+            | base64 --decode > android/app/keystore.jks
 
       - name: Write key.properties
         run: |
-          cat <<EOF > android/key.properties
+          cat > android/key.properties <<EOF
           storePassword=${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
-          storeFile=android/app/keystore.jks
+          storeFile=app/keystore.jks
           EOF
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '11'
 
-      - name: Install Flutter SDK
-        run: |
-          git clone https://github.com/flutter/flutter.git --depth 1 -b $FLUTTER_CHANNEL
-          echo "$PWD/flutter/bin" >> $GITHUB_PATH
-
-      - name: Flutter doctor & dependencies
+      - name: Flutter doctor & pub get
         run: |
           flutter config --no-analytics
           flutter doctor -v
           flutter pub get
 
-      - name: Build release APK
+      - name: Build APK (release)
         run: flutter build apk --release
 
-      - name: Build release AAB
+      - name: Build AAB (release)
         run: flutter build appbundle --release
 
       - name: Upload artifacts

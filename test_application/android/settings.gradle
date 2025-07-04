@@ -1,5 +1,3 @@
-// android/settings.gradle ✅ 完全兼容 Flutter + Gradle 8+
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
