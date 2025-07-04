@@ -1,6 +1,18 @@
+// ✅ 修复版 android/build.gradle（兼容 Flutter + Gradle 8）
+
+// 先读取 local.properties 文件
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") {
+        localProperties.load(it)
+    }
+}
+
+// 提前定义 flutterRoot
+ext.flutterRoot = localProperties.getProperty("flutter.sdk")
 buildscript {
     ext.kotlin_version = '1.8.22'
-    ext.flutterRoot = localProperties.getProperty('flutter.sdk')
     repositories {
         google()
         mavenCentral()
