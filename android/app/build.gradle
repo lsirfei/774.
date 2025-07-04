@@ -1,23 +1,29 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.flutter.android'  // Flutter Gradle 插件，正式名称叫 'org.flutter.android'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.22' apply false
+    id 'org.jetbrains.kotlin.kapt' version '1.8.22' apply false
 }
 
 android {
-    namespace 'com.example.test_application'  // 你的包名
-    compileSdk 34  // 注意 compileSdkVersion 改为 compileSdk，Gradle 8 新写法
+    namespace "com.example.test_application"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.test_application"
-        minSdk 21    // minSdkVersion 改为 minSdk
-        targetSdk 34 // targetSdkVersion 改为 targetSdk
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
     }
 
     signingConfigs {
         release {
+            def keystorePropertiesFile = rootProject.file("key.properties")
+            def keystoreProperties = new Properties()
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+            }
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
