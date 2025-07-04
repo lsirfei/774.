@@ -12,6 +12,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace "com.example.test_application"
     compileSdkVersion 33
 
     defaultConfig {
