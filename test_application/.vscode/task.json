@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flutter: Build Release APK",
+      "type": "shell",
+      "command": "flutter build apk --release",
+      "group": "build",
+      "presentation": { "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build Release AAB",
+      "type": "shell",
+      "command": "flutter build appbundle --release",
+      "group": "build",
+      "presentation": { "reveal": "always" },
+      "problemMatcher": []
+    }
+  ]
+}

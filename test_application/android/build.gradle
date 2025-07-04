@@ -1,0 +1,19 @@
+// android/build.gradle ✅ 最终修正版（支持 Flutter + Gradle 8）
+
+buildscript {
+    ext.kotlin_version = '1.8.22'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+// ❌ 千万不要再加 allprojects，否则和 settings.gradle 冲突！
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
