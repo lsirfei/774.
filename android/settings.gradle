@@ -1,29 +1,4 @@
-pluginManagement {
-    repositories {
-        google()             // 必须有
-        mavenCentral()       // 必须有
-        gradlePluginPortal() // 必须有
-        maven {
-            url "https://storage.googleapis.com/download.flutter.io"
-        }
-    }
-    plugins {
-        id "com.android.application" version "8.4.0"
-        id "org.jetbrains.kotlin.android" version "1.9.10"
-        id "dev.flutter.flutter-gradle-plugin" version "1.0.0"
-    }
-}
+// android/settings.gradle
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url "https://storage.googleapis.com/download.flutter.io"
-        }
-    }
-}
-
-rootProject.name = 'your_project_name'
+rootProject.name = 'yourapp'  // 请替换为你的项目名
 include ':app'
