@@ -1,22 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "${rootProject.ext.flutterRoot}/packages/flutter_tools/gradle/flutter.gradle"
-
-
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file("key.properties")
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.flutter.android'  // Flutter Gradle 插件，正式名称叫 'org.flutter.android'
 }
 
 android {
-    namespace "com.example.test_application"
-    compileSdkVersion 34
+    namespace 'com.example.test_application'  // 你的包名
+    compileSdk 34  // 注意 compileSdkVersion 改为 compileSdk，Gradle 8 新写法
 
     defaultConfig {
         applicationId "com.example.test_application"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 21    // minSdkVersion 改为 minSdk
+        targetSdk 34 // targetSdkVersion 改为 targetSdk
         versionCode 1
         versionName "1.0"
     }
