@@ -1,25 +1,23 @@
-name: test_application
+name: your_project_name
 description: A new Flutter project.
 
-publish_to: 'none' # 不发布到 pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true
-
-  # 这里可以添加资源文件路径
-  # assets:
-  #   - assets/images/
